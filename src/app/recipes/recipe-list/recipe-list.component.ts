@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Recipe} from '../recipe.model';
 
 @Component({
@@ -8,14 +8,20 @@ import {Recipe} from '../recipe.model';
 })
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [
-    new Recipe('Nonna\'s Lasagne', 'Best lasagna ever', 'https://www.simplyrecipes.com/wp-content/uploads/2004/12/lasagna-horiz-a-2000-600x400.jpg')
+    new Recipe('Nonna\'s Lasagne', 'Best lasagna ever', 'https://www.freeimageslive.co.uk/files/images009/lasagne_plated.preview.jpg')
 ,
-    new Recipe('Nonna\'s Lasagne', 'Best lasagna ever', 'https://www.simplyrecipes.com/wp-content/uploads/2004/12/lasagna-horiz-a-2000-600x400.jpg')
+    new Recipe('Lemon Meringue Pie', 'Pie!', 'https://c.pxhere.com/photos/d7/e2/cake_Cakes_Foods_Meringue_Pie_Pies-1618330.jpg!d')
   ];
+
+  // note: can't listen to the event of a child of a child aka grandchild
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onRecipeSelected(recipeElement: Recipe): void {
+    this.recipeWasSelected.emit(recipeElement);
+  }
 }
